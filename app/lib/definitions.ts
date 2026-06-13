@@ -63,6 +63,7 @@ export type CustomersTableType = {
   total_invoices: number;
   total_pending: number;
   total_paid: number;
+  total_revenue: number;
 };
 
 export type FormattedCustomersTable = {
@@ -73,6 +74,7 @@ export type FormattedCustomersTable = {
   total_invoices: number;
   total_pending: string;
   total_paid: string;
+  total_revenue: string;
 };
 
 export type CustomerField = {
