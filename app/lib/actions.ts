@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import postgres from 'postgres';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import bcrypt from 'bcryptjs';
  
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 const FormSchema = z.object({
@@ -114,4 +115,48 @@ export async function authenticate(
     }
     throw error;
   }
+}
+
+const RegisterSchema = z.object({
+  name: z.string().min(1, { message: 'Name is required.' }),
+  email: z.string().email({ message: 'Please enter a valid email.' }),
+  password: z.string().min(6, { message: 'Password must be at least 6 characters.' }),
+});
+
+export async function register(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  const validatedFields = RegisterSchema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+    password: formData.get('password'),
+  });
+
+  if (!validatedFields.success) {
+    const errors = validatedFields.error.flatten().fieldErrors;
+    return Object.values(errors).flat().join(' ');
+  }
+
+  const { name, email, password } = validatedFields.data;
+
+  try {
+    // Check if user already exists
+    const existing = await sql`SELECT id FROM users WHERE email = ${email}`;
+    if (existing.length > 0) {
+      return 'An account with this email already exists.';
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await sql`
+      INSERT INTO users (name, email, password)
+      VALUES (${name}, ${email}, ${hashedPassword})
+    `;
+  } catch (error) {
+    console.error('Error registering user:', error);
+    return 'Database Error: Failed to create account.';
+  }
+
+  redirect('/login');
 }
