@@ -1,6 +1,3 @@
-// export default function Page() {
-//   return <p>Dashboard Page</p>;
-// }
 
 
 // import { Card } from '@/app/ui/dashboard/cards';
