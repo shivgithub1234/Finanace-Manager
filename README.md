@@ -86,12 +86,12 @@ npm install
 Create a `.env.local` file:
 
 ```env
-POSTGRES_URL=
-POSTGRES_PRISMA_URL=
-POSTGRES_URL_NON_POOLING=
+POSTGRES_URL=xxxx
+POSTGRES_PRISMA_URL=xxxx
+POSTGRES_URL_NON_POOLING=xxxx
 
-AUTH_SECRET=
-AUTH_URL=
+AUTH_SECRET=xxxx
+AUTH_URL=xxxx
 ```
 
 ### Run the Development Server
@@ -131,13 +131,13 @@ Open http://localhost:3000 in your browser.
 ## 📸 Screenshots
 
 ### Dashboard
-![Dashboard Screenshot](./screenshots/dashboard.png)
+![Dashboard Screenshot](./public/dashboard.png)
 
 ### Invoices
-![Invoices Screenshot](./screenshots/invoices.png)
+![Invoices Screenshot](./public/invoices.png)
 
 ### Customers
-![Customers Screenshot](./screenshots/customers.png)
+![Customers Screenshot](./public/customer.png)
 
 ---
 
@@ -145,15 +145,5 @@ Open http://localhost:3000 in your browser.
 
 Many small businesses still rely on spreadsheets to manage invoices and financial records. Finance Manager was built to explore how these workflows can be streamlined into a centralized web application with secure authentication, efficient data management, and actionable business insights.
 
----
-
-## 👨‍💻 Author
-
-**Shivam Mishra**
-
-- GitHub: https://github.com/your-username
-- LinkedIn: https://linkedin.com/in/your-profile
-
----
 
 ⭐ If you found this project interesting, feel free to star the repository!
